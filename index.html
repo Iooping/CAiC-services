@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cordova AI Creatives</title>
+    <title>CAiC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,8 +336,8 @@
             position: relative;
         }
 
-        /* Image Modal Styles */
-        #image-modal-content {
+        /* Image/Video Modal Styles */
+        #media-modal-content {
             background-color: transparent; /* Transparent background for the image modal */
             border: none;
             padding: 0;
@@ -351,6 +351,16 @@
             border-radius: 0.75rem;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+        }
+
+        #modal-video-frame {
+            width: 80vw; /* Responsive width */
+            max-width: 900px; /* Maximum width for the video */
+            height: 45vw; /* Maintain 16:9 aspect ratio */
+            max-height: 506px;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: none;
         }
 
         .close-button {
@@ -464,28 +474,30 @@
     <section id="portfolio" class="portfolio-section fade-in-section">
         <h2>Our Work</h2>
         <div class="portfolio-grid">
-            <!-- Added data attributes and made the entire div clickable -->
+            <!-- Video Pop-up with updated thumbnail -->
+            <div class="portfolio-item" data-src="https://www.youtube.com/embed/Wg11Y5DrVgw?autoplay=1" data-alt="Ai Agent Demo">
+                <img src="https://i.postimg.cc/MG9WWdyv/Gemini-Generated-Image-shzbeashzbeashzb.png" alt="Ai Agent Demo Thumbnail">
+                <div class="overlay">
+                    <span class="view-btn">View Demo</span>
+                </div>
+            </div>
+            <!-- Image Pop-up -->
             <div class="portfolio-item" data-src="https://i.postimg.cc/B62RR2K6/Cordova-j-my-RDCNIRLogo-Entry.png" data-alt="Sample Logo">
                 <img src="https://i.postimg.cc/B62RR2K6/Cordova-j-my-RDCNIRLogo-Entry.png" alt="Sample Logo">
                 <div class="overlay">
                     <span class="view-btn">View Logo</span>
                 </div>
             </div>
-            <!-- The placeholders are now also clickable -->
-            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/F5F0E6/1C2A4D?text=Canva+Template" data-alt="Canva Template">
-                <img src="https://via.placeholder.com/400x300/F5F0E6/1C2A4D?text=Canva+Template" alt="Canva Template">
+            <!-- Image Pop-up -->
+            <div class="portfolio-item" data-src="https://i.postimg.cc/mrwGr0j4/Gemini-Generated-Image-h5yboxh5yboxh5yb.png" data-alt="Canva Template">
+                <img src="https://i.postimg.cc/mrwGr0j4/Gemini-Generated-Image-h5yboxh5yboxh5yb.png" alt="Canva Template">
                 <div class="overlay">
                     <span class="view-btn">View Template</span>
                 </div>
             </div>
-            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/E8C87C/1C2A4D?text=Chatbot+UI" data-alt="Chatbot UI">
-                <img src="https://via.placeholder.com/400x300/E8C87C/1C2A4D?text=Chatbot+UI" alt="Chatbot UI">
-                <div class="overlay">
-                    <span class="view-btn">View Demo</span>
-                </div>
-            </div>
-            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/1C2A4D/F5F0E6?text=Google+Site" data-alt="Google Site">
-                <img src="https://via.placeholder.com/400x300/1C2A4D/F5F0E6?text=Google+Site" alt="Google Site">
+            <!-- Video Pop-up with updated thumbnail -->
+            <div class="portfolio-item" data-src="https://www.youtube.com/embed/fGVdmDj9Ux0?autoplay=1" data-alt="Google Site Video">
+                <img src="https://i.postimg.cc/sXNG25k4/Gemini-Generated-Image-pbpi94pbpi94pbpi.png" alt="Google Site Video Thumbnail">
                 <div class="overlay">
                     <span class="view-btn">View Site</span>
                 </div>
@@ -564,11 +576,10 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Cordova AI Creatives</p>
+            <p>&copy; 2025 CAiC</p>
             <div class="footer-links">
                 <a href="#">Terms</a>
                 <a href="#">Privacy</a>
-                <a href="#">GitHub Pages Site</a>
             </div>
         </div>
     </footer>
@@ -589,11 +600,12 @@
         </div>
     </div>
 
-    <!-- Image Modal (New) -->
-    <div id="image-modal" class="modal">
-        <div id="image-modal-content">
-            <span class="close-button" onclick="closeImageModal()">&times;</span>
-            <img id="modal-image" src="" alt="Enlarged Portfolio Image">
+    <!-- Image/Video Modal -->
+    <div id="media-modal" class="modal">
+        <div id="media-modal-content">
+            <span class="close-button" onclick="closeMediaModal()">&times;</span>
+            <img id="modal-image" src="" alt="Enlarged Portfolio Image" class="hidden">
+            <iframe id="modal-video-frame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="hidden"></iframe>
         </div>
     </div>
 
@@ -631,39 +643,50 @@
             const modalForm = document.getElementById('modal-form');
             const modalInput = document.getElementById('modal-input');
             const modalValidationMessage = document.getElementById('modal-validation-message');
-            const contactMethodRadios = document.querySelectorAll('input[name="contact-method"]');
             
-            // Image Modal Elements
-            const imageModal = document.getElementById('image-modal');
+            // Image/Video Modal Elements
+            const mediaModal = document.getElementById('media-modal');
             const modalImage = document.getElementById('modal-image');
+            const modalVideoFrame = document.getElementById('modal-video-frame');
             const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-            // --- Image Modal Functions ---
-            function openImageModal(src, alt) {
-                modalImage.src = src;
-                modalImage.alt = alt;
-                imageModal.style.display = 'flex';
+            // --- Media Modal Functions ---
+            function openMediaModal(src, alt) {
+                // Check if the source is a video URL
+                if (src.includes('youtube.com/embed')) {
+                    modalImage.classList.add('hidden');
+                    modalVideoFrame.classList.remove('hidden');
+                    modalVideoFrame.src = src;
+                } else { // Assume it's an image
+                    modalVideoFrame.classList.add('hidden');
+                    modalImage.classList.remove('hidden');
+                    modalImage.src = src;
+                    modalImage.alt = alt;
+                }
+                mediaModal.style.display = 'flex';
             }
 
-            window.closeImageModal = function() {
-                imageModal.style.display = 'none';
+            window.closeMediaModal = function() {
+                mediaModal.style.display = 'none';
+                // Stop the video by clearing the iframe src
+                modalVideoFrame.src = '';
+                // Clear the image src as well
                 modalImage.src = '';
-                modalImage.alt = '';
             }
 
             // Click listener for portfolio items
             portfolioItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    const imgSrc = item.getAttribute('data-src');
-                    const imgAlt = item.getAttribute('data-alt');
-                    openImageModal(imgSrc, imgAlt);
+                    const mediaSrc = item.getAttribute('data-src');
+                    const mediaAlt = item.getAttribute('data-alt');
+                    openMediaModal(mediaSrc, mediaAlt);
                 });
             });
 
-            // Close image modal when clicking outside
-            imageModal.addEventListener('click', (event) => {
-                if (event.target === imageModal) {
-                    closeImageModal();
+            // Close modal when clicking outside
+            mediaModal.addEventListener('click', (event) => {
+                if (event.target === mediaModal) {
+                    closeMediaModal();
                 }
             });
 
@@ -781,7 +804,7 @@
                     }
                 }).then(response => {
                     if (response.ok) {
-                        formMessage.classList.remove('hidden', 'bg-red-500');
+                        formMessage.classList.remove('hidden', 'bg-green-500');
                         formMessage.classList.add('bg-green-500', 'text-white', 'opacity-100');
                         formMessage.innerHTML = '✅ Message sent successfully! We\'ll review it and get back to you shortly.';
                         contactForm.reset();
