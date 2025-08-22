@@ -13,7 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0d0c1d;
-            background-image: url(https://i.postimg.cc/C5zQP92g/add-traditional-Fili.png);
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231f2937' fill-opacity='0.2'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
             color: #d1d5db;
         }
 
@@ -24,14 +24,7 @@
             background-color: #1f2937;
             border-bottom: 1px solid #374151;
             animation: fadeIn 0.7s ease-in-out forwards;
-
-            /* Styles for the background image */
-            background-image: url(https://i.postimg.cc/C5zQP92g/add-traditional-Fili.png);
-            background-size: 100px; /* Adjust the size as needed */
-            background-repeat: no-repeat;
-            background-position: center top 2rem; /* Position it at the top-center with some padding */
         }
-
         .hero-content h1 {
             font-size: 3rem;
             font-weight: 700;
@@ -649,9 +642,9 @@
                 if (method === 'Phone') {
                     heading.textContent = 'Please provide your Phone Number';
                     label.textContent = 'Phone Number';
-                    modalInput.type = 'tel';
+                    modalInput.type = 'tel'; // Use 'tel' for better mobile keyboard
                     modalInput.placeholder = 'e.g., +639171234567';
-                    modalInput.pattern = '\\+?[0-9]{10,15}';
+                    modalInput.pattern = '\\+?[0-9]{10,15}'; // Simple pattern for international phone numbers
                     modalValidationMessage.textContent = 'Please enter a valid phone number (e.g., +639...).';
                 } else if (method === 'Messenger') {
                     heading.textContent = 'Please provide your Messenger Username';
