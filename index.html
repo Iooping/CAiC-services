@@ -7,14 +7,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        :root {
+            /* * CSS Variables for custom backgrounds.
+             * You can change the values below to use your own background images.
+             * For a solid color, set it to "none" and change the background-color property.
+             * To add an image, replace "none" with url('your-image-url.jpg').
+             */
+            --body-bg-image: url("https://i.postimg.cc/hvZRcTSq/Remove-all-text-fromhj.png");
+            --hero-bg-image: url("https://i.postimg.cc/hvZRcTSq/Remove-all-text-fromhj.png");
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0d0c1d;
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231f2937' fill-opacity='0.2'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+            background-image: var(--body-bg-image);
             color: #d1d5db;
+            scroll-behavior: smooth; /* Added for smooth scrolling */
         }
 
         /* Hero Section */
@@ -22,6 +33,9 @@
             padding: 8rem 2rem;
             text-align: center;
             background-color: #1f2937;
+            background-image: var(--hero-bg-image);
+            background-size: cover; /* Ensures the image covers the section */
+            background-position: center; /* Centers the background image */
             border-bottom: 1px solid #374151;
             animation: fadeIn 0.7s ease-in-out forwards;
         }
@@ -135,6 +149,7 @@
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
+            cursor: pointer; /* Add cursor pointer to show it's clickable */
         }
         .portfolio-item img {
             width: 100%;
@@ -320,6 +335,24 @@
             max-width: 500px;
             position: relative;
         }
+
+        /* Image Modal Styles */
+        #image-modal-content {
+            background-color: transparent; /* Transparent background for the image modal */
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            max-width: 90%; /* Max width for the image container */
+        }
+        #modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
         .close-button {
             color: #d1d5db;
             position: absolute;
@@ -431,25 +464,27 @@
     <section id="portfolio" class="portfolio-section fade-in-section">
         <h2>Our Work</h2>
         <div class="portfolio-grid">
-            <div class="portfolio-item">
+            <!-- Added data attributes and made the entire div clickable -->
+            <div class="portfolio-item" data-src="https://i.postimg.cc/B62RR2K6/Cordova-j-my-RDCNIRLogo-Entry.png" data-alt="Sample Logo">
                 <img src="https://i.postimg.cc/B62RR2K6/Cordova-j-my-RDCNIRLogo-Entry.png" alt="Sample Logo">
                 <div class="overlay">
                     <span class="view-btn">View Logo</span>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <!-- The placeholders are now also clickable -->
+            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/F5F0E6/1C2A4D?text=Canva+Template" data-alt="Canva Template">
                 <img src="https://via.placeholder.com/400x300/F5F0E6/1C2A4D?text=Canva+Template" alt="Canva Template">
                 <div class="overlay">
                     <span class="view-btn">View Template</span>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/E8C87C/1C2A4D?text=Chatbot+UI" data-alt="Chatbot UI">
                 <img src="https://via.placeholder.com/400x300/E8C87C/1C2A4D?text=Chatbot+UI" alt="Chatbot UI">
                 <div class="overlay">
                     <span class="view-btn">View Demo</span>
                 </div>
             </div>
-            <div class="portfolio-item">
+            <div class="portfolio-item" data-src="https://via.placeholder.com/400x300/1C2A4D/F5F0E6?text=Google+Site" data-alt="Google Site">
                 <img src="https://via.placeholder.com/400x300/1C2A4D/F5F0E6?text=Google+Site" alt="Google Site">
                 <div class="overlay">
                     <span class="view-btn">View Site</span>
@@ -538,9 +573,10 @@
         </div>
     </footer>
 
+    <!-- Contact Modal (Existing) -->
     <div id="contact-modal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" onclick="closeContactModal()">&times;</span>
             <h3 class="modal-heading">Please provide your details</h3>
             <form id="modal-form">
                 <label for="modal-input" class="block mb-2 font-medium">Phone Number</label>
@@ -550,6 +586,14 @@
                     Continue to Send Message
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Image Modal (New) -->
+    <div id="image-modal" class="modal">
+        <div id="image-modal-content">
+            <span class="close-button" onclick="closeImageModal()">&times;</span>
+            <img id="modal-image" src="" alt="Enlarged Portfolio Image">
         </div>
     </div>
 
@@ -583,13 +627,51 @@
             const formMessage = document.getElementById('form-message');
             const submitButton = document.getElementById('submit-button');
             const buttonText = document.getElementById('button-text');
-            const modal = document.getElementById('contact-modal');
-            const closeModalBtn = document.querySelector('.close-button');
+            const contactModal = document.getElementById('contact-modal');
             const modalForm = document.getElementById('modal-form');
             const modalInput = document.getElementById('modal-input');
             const modalValidationMessage = document.getElementById('modal-validation-message');
             const contactMethodRadios = document.querySelectorAll('input[name="contact-method"]');
+            
+            // Image Modal Elements
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
 
+            // --- Image Modal Functions ---
+            function openImageModal(src, alt) {
+                modalImage.src = src;
+                modalImage.alt = alt;
+                imageModal.style.display = 'flex';
+            }
+
+            window.closeImageModal = function() {
+                imageModal.style.display = 'none';
+                modalImage.src = '';
+                modalImage.alt = '';
+            }
+
+            // Click listener for portfolio items
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const imgSrc = item.getAttribute('data-src');
+                    const imgAlt = item.getAttribute('data-alt');
+                    openImageModal(imgSrc, imgAlt);
+                });
+            });
+
+            // Close image modal when clicking outside
+            imageModal.addEventListener('click', (event) => {
+                if (event.target === imageModal) {
+                    closeImageModal();
+                }
+            });
+
+            // --- Contact Modal Functions ---
+            window.closeContactModal = function() {
+                contactModal.style.display = 'none';
+            }
+            
             // Function to validate the main form
             const validateMainForm = () => {
                 const requiredInputs = contactForm.querySelectorAll('input[required], textarea[required]');
@@ -630,13 +712,13 @@
                 if (selectedMethod === 'Email') {
                     submitMainForm();
                 } else {
-                    showModal(selectedMethod);
+                    showContactModal(selectedMethod);
                 }
             });
 
             // Handle modal logic
-            function showModal(method) {
-                const heading = document.querySelector('.modal-heading');
+            function showContactModal(method) {
+                const heading = document.querySelector('#contact-modal .modal-heading');
                 const label = document.querySelector('#modal-form label');
 
                 if (method === 'Phone') {
@@ -657,22 +739,10 @@
                 
                 modalInput.value = '';
                 modalValidationMessage.style.display = 'none';
-                modal.style.display = 'flex';
+                contactModal.style.display = 'flex';
             }
 
-            // Close modal button
-            closeModalBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-            // Close modal when clicking outside
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-
-            // Handle modal form submission
+            // Handle contact modal form submission
             modalForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 
@@ -688,7 +758,7 @@
                 hiddenInput.value = modalInput.value;
                 contactForm.appendChild(hiddenInput);
                 
-                modal.style.display = 'none';
+                contactModal.style.display = 'none';
                 submitMainForm();
             });
 
