@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAiC — Service Suite</title>
+  <style>
+    :root {
+      --primary: #6c63ff; /* Violet */
+      --accent: #ff6f61;  /* Coral */
+      --bg: #f9f9fb;
+      --text: #333;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card-header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .card-content {
+      padding: 1rem 1.5rem;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .card-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card-content li {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✨ CAiC — Service Suite</h1>
+    <p>Empowering Filipino brands and student groups through smart design, automation, and advocacy</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🎨 AI-Powered Branding & Content Packs</div>
+      <div class="card-content">
+        <ul>
+          <li>🎨 Custom brand visuals: logos, palettes, font pairings, Canva templates</li>
+          <li>🧠 Generative AI prompts for image creation, tailored to brand identity</li>
+          <li>📦 Content packs for social media: captions, hashtags, post designs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🌐 Web Design & Optimization</div>
+      <div class="card-content">
+        <ul>
+          <li>🌐 Google Sites setup with premium visuals and responsive layout</li>
+          <li>🧩 Section structuring: About, Services, Portfolio, Testimonials, Contact</li>
+          <li>📈 CTA buttons, feedback forms, and UX enhancements for engagement</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🤖 AI Agent Setup & Automation</div>
+      <div class="card-content">
+        <ul>
+          <li>🤖 Chatbot integration using Vertex AI and Cloud Functions</li>
+          <li>📲 Social media automation: auto-replies, lead capture, engagement flows</li>
+          <li>🛠️ Backend troubleshooting and API linking for seamless performance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">📝 Academic & Organizational Support</div>
+      <div class="card-content">
+        <ul>
+          <li>📝 Drafting persuasive letters, endorsements, formal requests</li>
+          <li>📋 List formatting, alphabetizing, document clarity for student groups</li>
+          <li>🎓 Advocacy for academic initiatives (e.g., special classes, graduation support)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">🔁 Creative Consulting & Iteration</div>
+      <div class="card-content">
+        <ul>
+          <li>🔁 Feedback-driven design refinement (gradients, overlays, layout tweaks)</li>
+          <li>🧪 Font experimentation and visual storytelling for cultural resonance</li>
+          <li>💬 Strategic advice on branding, copywriting, and client persuasion</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleCard(header) {
+      const content = header.nextElementSibling;
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
